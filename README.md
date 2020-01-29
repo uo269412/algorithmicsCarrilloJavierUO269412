@@ -7,3 +7,5 @@ Repository for the Algorithmics course at the School of Computer Engineering of 
 **Year**: 2020
 
 **Repository URL**: https://github.com/uo269412/algorithmicsCarrilloJavierUO269412.git
+
+**Email**: UO269412@uniovi.es
