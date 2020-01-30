@@ -1,6 +1,12 @@
 package session1_1;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Random;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 public class MatrixOperations {
 	int[][] matrix;
@@ -25,7 +31,36 @@ public class MatrixOperations {
 	 * @param fileName of the file we want to read the matrix from
 	 */
 	public MatrixOperations(String fileName) {
-
+		String line;
+		String[] matrixData = null;
+		String[] lineData = null;
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader("files/" + fileName + ".dat"));
+			int lines = 0;
+			while (reader.readLine() != null) {
+				lines++;
+			}
+			reader.close();
+			matrix = new int[lines][lines];
+			BufferedReader file = new BufferedReader(new FileReader("files/" + fileName + ".dat"));
+			int i = 0;
+			while (file.ready()) {
+				line = file.readLine();
+				matrixData = line.split("\t");
+				for (int k = 0; k < matrixData.length; k++) {
+					lineData = matrixData[k].split(" ");
+				}
+				for (int j = 0; j < lineData.length; j++) {
+					matrix[i][j] = Integer.parseInt(lineData[j]);
+				}
+				i++;
+			}
+			file.close();
+		} catch (FileNotFoundException fnfe) {
+			System.out.println("File not found.");
+		} catch (IOException ioe) {
+			new RuntimeException("I/O Error.");
+		}
 	}
 
 	/**
@@ -41,7 +76,15 @@ public class MatrixOperations {
 	 * Prints through the console all the matrix element
 	 */
 	public void write() {
-
+//		private static Logger log = LoggerFactory.getLogger(MatrixOperations.class);
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix.length; j++) {
+//				log.info(matrix[i][j] + "\t");
+				System.out.print(matrix[i][j] + "\t");
+			}
+//			log.info("\n");
+			System.out.println();
+		}
 	}
 
 	/**
@@ -89,23 +132,23 @@ public class MatrixOperations {
 	 * @param j starting number of the column for the method
 	 */
 	public void travelPath(int i, int j) {
-		while (i >= 0 && i < matrix.length && j >= 0 && j > matrix.length && matrix[i][j] != -1) {
+		while (i >= 0 && i < matrix.length && j >= 0 && j < matrix.length && matrix[i][j] != -1) {
 			switch (matrix[i][j]) {
 			case 1:
-				travelPath(i, j - 1);
 				matrix[i][j] = -1;
+				travelPath(i -1, j);
 				break;
 			case 2:
-				travelPath(i + 1, j);
 				matrix[i][j] = -1;
+				travelPath(i, j + 1);
 				break;
 			case 3:
-				travelPath(i, j + 1);
 				matrix[i][j] = -1;
+				travelPath(i + 1, j);
 				break;
 			case 4:
-				travelPath(i - 1, j);
 				matrix[i][j] = -1;
+				travelPath(i, j - 1);		
 				break;
 			}
 		}
