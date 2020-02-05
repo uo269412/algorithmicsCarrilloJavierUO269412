@@ -5,12 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MatrixOperations {
 	int[][] matrix;
-
+	Logger log = LoggerFactory.getLogger(MatrixOperations.class);
 	/**
 	 * Creates a new matrix of size n x n and fills it with random values.
 	 * 
@@ -76,13 +76,10 @@ public class MatrixOperations {
 	 * Prints through the console all the matrix element
 	 */
 	public void write() {
-//		private static Logger log = LoggerFactory.getLogger(MatrixOperations.class);
 		for (int i = 0; i < matrix.length; i++) {
 			for (int j = 0; j < matrix.length; j++) {
-//				log.info(matrix[i][j] + "\t");
 				System.out.print(matrix[i][j] + "\t");
 			}
-//			log.info("\n");
 			System.out.println();
 		}
 	}
