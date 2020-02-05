@@ -5,7 +5,17 @@ public class Vector4 {
 	public static void main(String args[]) {
 //		measureFillIn(args);
 //		measureSum(args);
-		measureMaximum(args);
+//		measureMaximum(args);
+//		long seconds = (Integer.MAX_VALUE - System.currentTimeMillis()) *10^-3;
+//		long minutes = seconds /60;
+//		long hours = minutes/60;
+//		long days = hours/24;
+//		long months = days/30;
+//		long years = months/12;
+//		System.out.println(years);
+//		int years2 = (int) months/12;
+//		System.out.println(years2);
+//		System.out.println(Integer.MAX_VALUE - years2);
 	}
 
 

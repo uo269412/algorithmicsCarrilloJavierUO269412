@@ -6,8 +6,8 @@ public class MatrixOperationsTimes {
 	public static void main(String args[]) {
 		System.out.println("DIAGONAL 1");
 		calculateSumDiagonal1(args[0]);
-		System.out.println("DIAGONAL 2");
-		calculateSumDiagonal2(args[0]);
+//		System.out.println("DIAGONAL 2");
+//		calculateSumDiagonal2(args[0]);
 	}
 
 	public static void calculateSumDiagonal1(String times) {

@@ -3,7 +3,7 @@ package session1_1;
 public class Vector3 {
 
 	public static void main(String args[]) {
-		for (int n = 10; n < Integer.MAX_VALUE; n *= 5) {
+		for (int n = 10; n < Integer.MAX_VALUE; n *= 2) {
 			int[] v = new int[n];
 			Vector1.fillIn(v);
 
