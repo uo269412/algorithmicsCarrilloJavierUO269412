@@ -3,10 +3,10 @@ package session1_1;
 public class Vector4 {
 
 	public static void main(String args[]) {
-//		measureFillIn(args);
+		measureFillIn(args);
 //		measureSum(args);
 //		measureMaximum(args);
-		System.out.println((Long.MAX_VALUE - System.currentTimeMillis()) / 1000 / 3600 / 24 / 365);
+//		System.out.println((Long.MAX_VALUE - System.currentTimeMillis()) / 1000 / 3600 / 24 / 365);
 	}
 
 
