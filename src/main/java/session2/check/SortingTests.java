@@ -9,7 +9,7 @@ public class SortingTests {
 	public static void main(String arg []) {
 		int n = Integer.parseInt(arg[0]);  //problem size
 		
-		testSortingAlgorithm(new Insertion(n));
+//		testSortingAlgorithm(new Insertion(n));
 		
 //		testSortingAlgorithm(new Selection(n));
 		
@@ -17,7 +17,7 @@ public class SortingTests {
 		
 //		testSortingAlgorithm(new QuicksortFateful(n));
 		
-//		testSortingAlgorithm(new QuicksortCentralElement(n));
+		testSortingAlgorithm(new QuicksortCentralElement(n));
 		
 //		testSortingAlgorithm(new QuicksortMedianOfThree(n));
 	}
