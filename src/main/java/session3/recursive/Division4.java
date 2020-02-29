@@ -4,24 +4,23 @@ package session3.recursive;
  * The time complexity is O(n) 
  * and the waste of stack is O(log n)
  * Regardless the growth of n => the stack does not overflow 
+ * a = 4; b = 3; k = 2.
  */
 public class Division4 {
-	public static long rec3 (int n) {
+	public static long rec4 (int n) {
 		long cont = 0;
 		if (n<=0) 
 			cont++;
 		else { 
 			for (int i = 0; i < n; i++) {
 				for(int j = 0; j < n; j++) {
-					cont++ ; // O(1)  
+					cont++; //O(n^2)
 				}
-				
 			}
-			rec3(n/2);
-			rec3(n/2);
-			rec3(n/2);
-			rec3(n/2);
-
+			rec4(n/3);
+			rec4(n/3);
+			rec4(n/3);
+			rec4(n/3);
 		}
 		return cont;   
 	}
@@ -30,7 +29,7 @@ public class Division4 {
 		 long t1,t2,cont = 0;	 
 		 for (int n=1;n<=10000000;n*=2) {
 			  t1 = System.currentTimeMillis ();			   
-			  cont = rec3(n);
+			  cont = rec4(n);
 			  t2 = System.currentTimeMillis ();
 			
 			  System.out.println ("n="+n+ "**TIME="+(t2-t1)+"**cont="+cont);	
