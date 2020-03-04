@@ -19,6 +19,14 @@ public class Gilito1 {
 		this.coins[position] = value;
 	}
 	
+	public int getCoinsLength() {
+		return this.coins.length;
+	}
+	
+	public int[] getCoins() {
+		return coins;
+	}
+	
 	public long getUsedWatts() {
 		return this.watts;
 	}
