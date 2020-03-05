@@ -94,8 +94,8 @@ public class Gilito2 extends Gilito1 {
 			if ((rightMax + 1) / 2 %2 != 0) {
 				return calculateUnderstandable(leftMin, (leftMax + leftMin) / 2, (leftMax + leftMin) / 2, leftMax);
 			} else {
-				System.out.println(leftMin);
-				return calculateUnderstandable(leftMin, (leftMax + leftMin - 1) / 2, (leftMax + leftMin) / 2, leftMax);
+				System.out.println("eh");
+				return calculateUnderstandable(leftMin, (leftMax + leftMin - 1) / 2, (leftMax+1 + leftMin) / 2, leftMax);
 			}
 
 		} else if (res == 2) {
@@ -111,7 +111,7 @@ public class Gilito2 extends Gilito1 {
 				return calculateUnderstandable(rightMin, (rightMin + rightMax) / 2, (rightMin + rightMax) / 2, rightMax);
 
 			} else {
-				return calculateUnderstandable(rightMin, (rightMin + rightMax - 1) / 2, (rightMin + rightMax) / 2, rightMax);
+				return calculateUnderstandable(rightMin, (rightMin + rightMax - 1) / 2, (rightMin+1 + rightMax) / 2, rightMax);
 			}
 
 		}
@@ -119,34 +119,34 @@ public class Gilito2 extends Gilito1 {
 	}
 
 	public static void main(String arg[]) {
-//		int n = Integer.parseInt(arg[0]); // number of coins (size of the problem)
-//		Gilito2 gilito = new Gilito2(n);
-//		// let's simulate the n possible cases - false currency in each position
-//		for (int i = 0; i < n; i++) {
-//			for (int j = 0; j < n; j++)
-//				gilito.setCoinWeight(j, REAL_WEIGHT); // authentic coin weight
-//			gilito.setCoinWeight(i, FAKE_WEIGHT); // fake coin weight
-//			gilito.calculate();
-//		}
-//		System.out.println("COINS=" + n + " ***AVERAGE ENERGY=" + gilito.getUsedWatts() / n + " watts");
+		int n = Integer.parseInt(arg[0]); // number of coins (size of the problem)
+		Gilito2 gilito = new Gilito2(n);
+		// let's simulate the n possible cases - false currency in each position
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++)
+				gilito.setCoinWeight(j, REAL_WEIGHT); // authentic coin weight
+			gilito.setCoinWeight(i, FAKE_WEIGHT); // fake coin weight
+			gilito.calculate();
+		}
+		System.out.println("COINS=" + n + " ***AVERAGE ENERGY=" + gilito.getUsedWatts() / n + " watts");
 //		   Gilito2 gilito2 = new Gilito2(4);
-//		   gilito2.setCoinWeight(0, REAL_WEIGHT); 
+//		   gilito2.setCoinWeight(0, FAKE_WEIGHT); 
 //		   gilito2.setCoinWeight(1, REAL_WEIGHT); 
-//		   gilito2.setCoinWeight(2, FAKE_WEIGHT); 
+//		   gilito2.setCoinWeight(2, REAL_WEIGHT); 
 //		   gilito2.setCoinWeight(3, REAL_WEIGHT); 
 //		   System.out.println("RESULT: " + gilito2.calculate());
 
-		Gilito2 gilito2 = new Gilito2(9);
-		gilito2.setCoinWeight(0, REAL_WEIGHT);
-		gilito2.setCoinWeight(1, REAL_WEIGHT);
-		gilito2.setCoinWeight(2, FAKE_WEIGHT);
-		gilito2.setCoinWeight(3, REAL_WEIGHT);
-		gilito2.setCoinWeight(4, REAL_WEIGHT);
-		gilito2.setCoinWeight(5, REAL_WEIGHT);
-		gilito2.setCoinWeight(6, REAL_WEIGHT);
-		gilito2.setCoinWeight(7, REAL_WEIGHT);
-		gilito2.setCoinWeight(8, REAL_WEIGHT);
-		System.out.println("RESULT: " + gilito2.calculate());
+//		Gilito2 gilito2 = new Gilito2(9);
+//		gilito2.setCoinWeight(0, REAL_WEIGHT);
+//		gilito2.setCoinWeight(1, REAL_WEIGHT);
+//		gilito2.setCoinWeight(2, REAL_WEIGHT);
+//		gilito2.setCoinWeight(3, REAL_WEIGHT);
+//		gilito2.setCoinWeight(4, REAL_WEIGHT);
+//		gilito2.setCoinWeight(5, FAKE_WEIGHT);
+//		gilito2.setCoinWeight(6, REAL_WEIGHT);
+//		gilito2.setCoinWeight(7, REAL_WEIGHT);
+//		gilito2.setCoinWeight(8, REAL_WEIGHT);
+//		System.out.println("RESULT: " + gilito2.calculate());
 
 	}
 }
