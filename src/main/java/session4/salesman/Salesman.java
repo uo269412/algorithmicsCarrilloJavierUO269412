@@ -137,20 +137,19 @@ public class Salesman {
 		sol[0] = sourceNode;
 		boolean[] edges = new boolean[nNodes];
 		edges[sourceNode] = true;
-		
-		for (int i = 1; i < nNodes; i++) {		
-			int minValue = Integer.MAX_VALUE;		
-			for (int j = 0; j < nNodes; j++) {				
-				if (edges[j] == false && i!=j && matrix[sol[i-1]][j] < minValue) {
-					minValue = matrix[sol[i-1]][j];
+		for (int i = 1; i < nNodes; i++) {
+			int minValue = Integer.MAX_VALUE;
+			for (int j = 0; j < nNodes; j++) {
+				if (edges[j] == false && matrix[sol[i - 1]][j] < minValue) {
+					minValue = matrix[sol[i - 1]][j];
 					nodeToAdd = j;
-				}				
-			}			
+				}
+			}
 			edges[nodeToAdd] = true;
 			cost += minValue;
 			sol[i] = nodeToAdd;
 		}
-		cost+= matrix[0][nNodes-1];
+		cost += matrix[sol[nNodes - 1]][sourceNode];
 		sol[nNodes] = sourceNode;
 		return cost;
 	}
