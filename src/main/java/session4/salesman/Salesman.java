@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class Salesman {
@@ -163,7 +166,25 @@ public class Salesman {
 	 *         the other nodes once
 	 */
 	public int greedy2() {
-		// TODO
+		LinkedList<Edge> list = new LinkedList<Edge>();
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix.length; j++) {
+				list.add(new Edge(i, j, matrix[i][j]));
+			}
+		}
+		Collections.sort(list);
+		
+		Component finalResult = new Component(nNodes);
+		finalResult.mergeComponents(list.get(0).sourceNode, list.get(0).targetNode);
+		while(!finalResult.onlyOneConnectedComponent()) {
+			for (int i = 1; i < list.size(); i++) {
+				if (list.get(i).sourceNode == finalResult.getComponent(list.get(i).sourceNode)) {
+					if (list.get(i).targetNode == finalResult.getComponent(list.get(i).targetNode)) {
+						finalResult.mergeComponents(list.get(i).sourceNode, list.get(i).targetNode);
+					} else if ()
+				}
+			}
+		}
 		return 0;
 	}
 

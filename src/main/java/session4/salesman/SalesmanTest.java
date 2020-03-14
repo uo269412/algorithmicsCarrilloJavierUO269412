@@ -29,9 +29,9 @@ public class SalesmanTest {
 		int expectedCost = 10;
     	Salesman v = new Salesman(file);
     	int cost = v.greedy2();
-    	for(int element : v.getSol()) {
-    		System.out.println(element);
-    	}
+//    	for(int element : v.getSol()) {
+//    		System.out.println(element);
+//    	}
     	assertEquals(expectedCost, cost);
     	assertArrayEquals(expected, v.getSol());
 	}
