@@ -8,7 +8,7 @@ package session4.salesman;
  */
 public class Component {
 	private int nNodes; //number of nodes in the graph
-	private int[] p; //stores the name of the component (a number) for each of the nodes
+	public int[] p; //stores the name of the component (a number) for each of the nodes
 
 	public Component(int nNodes) {
 		this.nNodes = nNodes;
