@@ -168,46 +168,40 @@ public class Salesman {
 	public int greedy2() {
 		LinkedList<Edge> list = new LinkedList<Edge>();
 		for (int i = 0; i < matrix.length; i++) {
-			for (int j = 0; j < matrix.length; j++) {
+			for (int j = 0; j < matrix.length - 1; j++) {
 				list.add(new Edge(i, j, matrix[i][j]));
 			}
 		}
 		Collections.sort(list);
 
 		Component finalResult = new Component(nNodes);
-		int cost = 0;
 		finalResult.mergeComponents(list.get(0).sourceNode, list.get(0).targetNode);
-		System.out.println("Elements in component");
-		for (int element : finalResult.p) {
-			System.out.println(element);
-		}
 		int counter = 2;
 		sol[0] = list.get(0).sourceNode;
 		sol[1] = list.get(0).targetNode;
-		cost += matrix[list.get(0).sourceNode][list.get(0).targetNode];
-		for (int i = 1; i < list.size(); i++) {
-			if (list.get(i).sourceNode == finalResult.getComponent(list.get(i).sourceNode)) {
-				if (list.get(i).targetNode != list.get(i).sourceNode) { //We don't consider edges from one to itself
-					if (list.get(i).targetNode == finalResult.getComponent(list.get(i).targetNode)) { //The target node is not in a component
-						finalResult.mergeComponents(list.get(i).sourceNode, list.get(i).targetNode);
-						cost += matrix[list.get(i).sourceNode][list.get(i).targetNode];
-						sol[counter++] = list.get(i).targetNode;
-						System.out.println("IF: SOURCE NODE: " + list.get(i).sourceNode + " TARGET NODE: "
-								+ list.get(i).targetNode);
-						System.out.println("Elements in component");
-						for (int element : finalResult.p) {
-							System.out.println(element);
-						}
-					} else { //The target node is in a component
-						System.out.println("ELSE: SOURCE NODE: " + list.get(i).sourceNode + " TARGET NODE: "
-								+ list.get(i).targetNode);
 
-						finalResult.mergeComponents(list.get(i).sourceNode, finalResult.getComponent(list.get(i).targetNode));
-						cost += matrix[list.get(i).sourceNode][list.get(i).targetNode];
-						sol[counter++] = list.get(i).sourceNode;
-						for (int element : finalResult.p) {
-							System.out.println(element);
+		for (int i = 1; i < list.size(); i++) {
+			if (list.get(i).targetNode != list.get(i).sourceNode) { // We don't consider edges from one to itself						
+				if (list.get(i).sourceNode == finalResult.getComponent(list.get(i).sourceNode)) {
+					if (list.get(i).targetNode == finalResult.getComponent(list.get(i).targetNode)) { // The target node
+																										// is not in a
+																										// component
+						if (list.get(i).sourceNode == sol[0]) {
+							sol[sol.length - 2] = list.get(i).targetNode;
+						} else if (list.get(i).targetNode == sol[0]){
+							sol[sol.length - 2] = list.get(i).sourceNode;
 						}
+						else {							
+							sol[counter++] = list.get(i).targetNode;
+						}
+
+						finalResult.mergeComponents(list.get(i).sourceNode, list.get(i).targetNode);
+
+					} else {  // The target node is in a component
+						finalResult.mergeComponents(list.get(i).sourceNode,
+								finalResult.getComponent(list.get(i).targetNode));
+						sol[counter++] = list.get(i).sourceNode;
+
 					}
 				}
 			}
@@ -215,11 +209,11 @@ public class Salesman {
 				break;
 			}
 		}
-//		int finalCost = 0;
-//		for (int j = 0; j < sol.length - 1; j++) {
-//			finalCost += matrix[sol[j]][sol[j+1]];
-//		}
-		return cost;
+		int finalCost = 0;
+		for (int j = 0; j < sol.length - 1; j++) {
+			finalCost += matrix[sol[j]][sol[j + 1]];
+		}
+		return finalCost;
 
 	}
 
