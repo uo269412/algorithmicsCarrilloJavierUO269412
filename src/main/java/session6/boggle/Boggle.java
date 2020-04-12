@@ -15,9 +15,10 @@ public class Boggle {
 	List<String> solutions;
 	String[][] table;
 	boolean[][] mark;
-	Hashtable<String, Boolean> dictionary;
+	// Hashtable<String, Boolean> dictionary;
 	int[] pointsPerLength = { 0, 0, 1, 2, 5, 7, 9, 12, 15, 19, 24 };
 	int totalPoints = 0;
+	Dictionary dictionary = new Dictionary();
 
 	public Boggle(String dictionaryFileName, String tableFileName) {
 		solutions = new ArrayList<String>();
@@ -26,14 +27,15 @@ public class Boggle {
 	}
 
 	public Boggle(String dictionaryFileName, int tableSize) {
+		solutions = new ArrayList<String>();
 		loadDictionary(dictionaryFileName);
 		table = new String[tableSize][tableSize];
-		mark = new boolean [tableSize][tableSize];
+		mark = new boolean[tableSize][tableSize];
 		Random r = new Random();
 		String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		for (int i = 0; i < tableSize; i++) {
 			for (int j = 0; j < tableSize; j++) {
-				table[i][j] = String.valueOf(alphabet.charAt(r.nextInt() * alphabet.length()));
+				table[i][j] = String.valueOf(alphabet.charAt(r.nextInt(alphabet.length())));
 			}
 		}
 	}
@@ -71,21 +73,48 @@ public class Boggle {
 		}
 		Collections.sort(solutions);
 	}
+	/**
+	 * Implementation using a hashtable of strings and boolean (worse performance, gives good times until table15)
+	 */
+//	private void backtrackingSolutions(String solution, int i, int j) {
+//		mark[i][j] = true;
+//		solution += table[i][j].toLowerCase();
+//		if (dictionary.containsKey(solution) && !(dictionary.get(solution) && solutions.contains(solution))) {
+//			solutions.add(solution);
+//			totalPoints+= pointsPerLength[solution.length()];
+//			dictionary.replace(solution, true);
+//		}
+//		for (int horizontalMovement = i - 1; horizontalMovement <= i + 1; horizontalMovement++) {
+//			for (int verticalMovement = j - 1; verticalMovement <= j + 1; verticalMovement++) {
+//				if (valuesAreInTable(horizontalMovement, verticalMovement)
+//						&& !mark[horizontalMovement][verticalMovement] && solution.length() <= pointsPerLength.length) {
+//
+//					backtrackingSolutions(solution, horizontalMovement, verticalMovement);
+//				}
+//			}
+//		}
+//		solution = solution.substring(0, solution.length() - table[i][j].length());
+//		mark[i][j] = false;
+//	}
 
+	/**
+	 * Implementation using a prefix tree
+	 */
 	private void backtrackingSolutions(String solution, int i, int j) {
 		mark[i][j] = true;
 		solution += table[i][j].toLowerCase();
-		if (dictionary.containsKey(solution) && !(dictionary.get(solution) && solutions.contains(solution))) {
+		if (dictionary.search(solution) && !solutions.contains(solution)) {
 			solutions.add(solution);
-			totalPoints+= pointsPerLength[solution.length()];
-			dictionary.replace(solution, true);
+			totalPoints += pointsPerLength[solution.length()];
 		}
-		for (int horizontalMovement = i - 1; horizontalMovement <= i + 1; horizontalMovement++) {
-			for (int verticalMovement = j - 1; verticalMovement <= j + 1; verticalMovement++) {
-				if (valuesAreInTable(horizontalMovement, verticalMovement)
-						&& !mark[horizontalMovement][verticalMovement] && solution.length() <= pointsPerLength.length) {
-
-					backtrackingSolutions(solution, horizontalMovement, verticalMovement);
+		if (dictionary.startsWith(solution)) {
+			for (int horizontalMovement = i - 1; horizontalMovement <= i + 1; horizontalMovement++) {
+				for (int verticalMovement = j - 1; verticalMovement <= j + 1; verticalMovement++) {
+					if (valuesAreInTable(horizontalMovement, verticalMovement)
+							&& !mark[horizontalMovement][verticalMovement]
+							&& solution.length() <= pointsPerLength.length) {
+						backtrackingSolutions(solution, horizontalMovement, verticalMovement);
+					}
 				}
 			}
 		}
@@ -124,13 +153,13 @@ public class Boggle {
 	}
 
 	private void loadDictionary(String dictionaryFileName) {
-		dictionary = new Hashtable<String, Boolean>();
 		BufferedReader file = null;
 		String line;
 		try {
 			file = new BufferedReader(new FileReader(dictionaryFileName));
 			while ((line = file.readLine()) != null) {
-				dictionary.put(line, false);
+				dictionary.insert(line.toLowerCase());
+//				dictionary.put(line, false);				
 			}
 			file.close();
 		} catch (FileNotFoundException e) {
