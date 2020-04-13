@@ -10,8 +10,7 @@ public class Dictionary {
     public void insert(String word) {
     	DictionaryNode node = root;
         for(int i = 0; i < word.length(); i++){
-            char ch = word.charAt(i);
-            int index = ch - 'a';
+            int index = getIndex(word, i);
             if (node.words[index] == null) {
             	DictionaryNode newNode = new DictionaryNode();
             	node.words[index] = newNode;
@@ -23,7 +22,11 @@ public class Dictionary {
         node.endOfWord = true;
     }
  
-    public boolean search(String word) {
+    private int getIndex(String word, int i) {
+		return (word.charAt(i) - 'a');
+	}
+
+	public boolean search(String word) {
     	DictionaryNode node = searchNode(word);
         if(node == null) {
             return false;
@@ -39,17 +42,16 @@ public class Dictionary {
     public DictionaryNode searchNode(String string){
     	DictionaryNode node = root;
         for (int i = 0; i < string.length(); i++) {
-            char ch = string.charAt(i);
-            int index = ch  -'a';
+        	int index = getIndex(string, i);
             if (node.words[index] != null){
             	node = node.words[index];
+            	if (node == root) {
+            		return null;
+            	}
             } else {
                 return null;
             }
         } 
-        if(node == root) {
-            return null;
-        }
         return node;
     }
 }
