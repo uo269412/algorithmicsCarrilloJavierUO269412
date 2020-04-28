@@ -12,13 +12,13 @@ import java.util.Random;
 
 public class Boggle {
 
-	List<String> solutions;
-	String[][] table;
-	boolean[][] mark;
+	protected List<String> solutions;
+	protected String[][] table;
+	protected boolean[][] mark;
 	// Hashtable<String, Boolean> dictionary;
-	int[] pointsPerLength = { 0, 0, 1, 2, 5, 7, 9, 12, 15, 19, 24 };
-	int totalPoints = 0;
-	Dictionary dictionary = new Dictionary();
+	protected int[] pointsPerLength = { 0, 0, 1, 2, 5, 7, 9, 12, 15, 19, 24 };
+	protected int totalPoints = 0;
+	protected Dictionary dictionary = new Dictionary();
 
 	public Boggle(String dictionaryFileName, String tableFileName) {
 		solutions = new ArrayList<String>();
@@ -46,6 +46,10 @@ public class Boggle {
 
 	public long getTotalPoints() {
 		return totalPoints;
+	}
+	
+	public String[][] getTable() {
+		return table;
 	}
 
 	public void printTable() {
@@ -100,7 +104,7 @@ public class Boggle {
 	/**
 	 * Implementation using a prefix tree
 	 */
-	private void backtrackingSolutions(String solution, int i, int j) {
+	protected void backtrackingSolutions(String solution, int i, int j) {
 		mark[i][j] = true;
 		solution += table[i][j].toLowerCase();
 		if (dictionary.search(solution) && !solutions.contains(solution)) {
@@ -122,7 +126,7 @@ public class Boggle {
 		mark[i][j] = false;
 	}
 
-	private boolean valuesAreInTable(int horizontalMovement, int verticalMovement) {
+	protected boolean valuesAreInTable(int horizontalMovement, int verticalMovement) {
 		return (horizontalMovement >= 0 && horizontalMovement < table.length && verticalMovement >= 0
 				&& verticalMovement < table.length);
 	}
